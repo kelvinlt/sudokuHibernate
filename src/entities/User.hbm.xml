@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 27-feb-2018 17:40:47 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="sudoku" name="entities.User" optimistic-lock="version" table="user">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="username" type="string">
+      <column length="30" name="username" not-null="true"/>
+    </property>
+    <property name="password" type="string">
+      <column length="30" name="password" not-null="true"/>
+    </property>
+    <property name="name" type="string">
+      <column length="30" name="name" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="histories" table="history">
+      <key>
+        <column name="user" not-null="true"/>
+      </key>
+      <one-to-many class="entities.History"/>
+    </set>
+  </class>
+</hibernate-mapping>
