@@ -1,5 +1,5 @@
 package entities;
-// Generated 27-feb-2018 17:40:46 by Hibernate Tools 4.3.1
+// Generated 01-mar-2018 23:56:49 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,7 +11,6 @@ import java.util.Set;
 public class User  implements java.io.Serializable {
 
 
-     private Integer id;
      private String username;
      private String password;
      private String name;
@@ -33,13 +32,6 @@ public class User  implements java.io.Serializable {
        this.histories = histories;
     }
    
-    public Integer getId() {
-        return this.id;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public String getUsername() {
         return this.username;
     }
