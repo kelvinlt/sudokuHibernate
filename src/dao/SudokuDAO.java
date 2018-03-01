@@ -77,6 +77,20 @@ public class SudokuDAO {
         tx.commit();
     }
     
+    //4D Modificar la contraseña de un usuario existente
+    
+    //4E Eliminar un usuario
+    
+    //5A Insertar partida finalizada
+    
+    //5B Calcular tiempo medio de usuario
+    
+    //5C Obtener Sudoku aleatorio de los que el usuario todavia no ha jugado
+    
+    //5D Obtener ranking de usuario mas alto tiempo medio de jugador
+    
+    //5E
+    
     public User getUserByUsername(String username){
         return (User) sesion.get(User.class, username);
     }
