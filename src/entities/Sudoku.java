@@ -1,5 +1,5 @@
 package entities;
-// Generated 01-mar-2018 23:56:49 by Hibernate Tools 4.3.1
+// Generated 02-mar-2018 9:26:31 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,8 +12,8 @@ public class Sudoku  implements java.io.Serializable {
 
 
      private Integer id;
-     private int description;
-     private String level;
+     private String description;
+     private int level;
      private String unsolved;
      private String solved;
      private Set histories = new HashSet(0);
@@ -22,13 +22,13 @@ public class Sudoku  implements java.io.Serializable {
     }
 
 	
-    public Sudoku(int description, String level, String unsolved, String solved) {
+    public Sudoku(String description, int level, String unsolved, String solved) {
         this.description = description;
         this.level = level;
         this.unsolved = unsolved;
         this.solved = solved;
     }
-    public Sudoku(int description, String level, String unsolved, String solved, Set histories) {
+    public Sudoku(String description, int level, String unsolved, String solved, Set histories) {
        this.description = description;
        this.level = level;
        this.unsolved = unsolved;
@@ -43,18 +43,18 @@ public class Sudoku  implements java.io.Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-    public int getDescription() {
+    public String getDescription() {
         return this.description;
     }
     
-    public void setDescription(int description) {
+    public void setDescription(String description) {
         this.description = description;
     }
-    public String getLevel() {
+    public int getLevel() {
         return this.level;
     }
     
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
     public String getUnsolved() {
@@ -79,7 +79,19 @@ public class Sudoku  implements java.io.Serializable {
         this.histories = histories;
     }
 
+    @Override
+    public String toString() {
+        return "Sudoku{ \n" + 
+                "id=" + id + "\n"+
+                " description=" + description + "\n"+
+                " level=" + level + "\n"+
+                " unsolved=" + unsolved + "\n"+
+                " solved=" + solved + "\n"+
+                " histories=" + histories + "\n"+
+                '}';
+    }
 
+ 
 
 
 }

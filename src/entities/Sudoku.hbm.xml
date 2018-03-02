@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 01-mar-2018 23:56:50 by Hibernate Tools 4.3.1 -->
+<!-- Generated 02-mar-2018 9:26:31 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entities.Sudoku" table="sudoku" catalog="sudoku" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <property name="description" type="int">
-            <column name="description" not-null="true" />
+        <property name="description" type="string">
+            <column name="description" length="100" not-null="true" />
         </property>
-        <property name="level" type="string">
-            <column name="level" length="50" not-null="true" />
+        <property name="level" type="int">
+            <column name="level" not-null="true" />
         </property>
         <property name="unsolved" type="string">
             <column name="unsolved" length="81" not-null="true" />

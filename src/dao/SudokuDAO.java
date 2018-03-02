@@ -85,7 +85,7 @@ public class SudokuDAO {
 
         //comparar en base de datos si username y password existen
         Query q = sesion.createQuery("select u from User u where username='" + u.getUsername() + "' and password='" + password + "'");
-        if (q.list() != null) {
+        if (!q.list().isEmpty()) {
             return true;
         } else {
             return false;
