@@ -123,6 +123,13 @@ public class sudokuHibernate {
         }
         lineBreak();
         
+        //(4E) Eliminacion de un usuario
+        System.out.println("Eliminacion de usuario");
+        try {
+            sudokuDAO.eliminarUser(mar);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         
         System.out.println("Cerrando session...");
         lineBreak();  

@@ -27,13 +27,7 @@ public class SudokuDAO {
     public SudokuDAO() {
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
-
-    public void insertarHistory(History h) {
-        tx = sesion.beginTransaction();
-        sesion.save(h);
-        tx.commit();
-    }
-
+    
     //3A Insertar nuevo sudoku en la BBDD
     public void insertarSudoku(Sudoku u) {
 //        Sudoku aux = getSudokuBySolved(u.getSolved());
@@ -129,24 +123,40 @@ public class SudokuDAO {
     }
 
     //4E Eliminar un usuario
+    public void eliminarUser(User u)throws exceptions.sudokuExceptions{
+        try {
+            Query q = sesion.createQuery("delete u from User u where username='"+u.getUsername()+"'");
+            q.executeUpdate();
+        } catch (Exception e) {
+            throw new sudokuExceptions("No se ha podido eliminar el usuario");
+        }
+    }
+    
     //5A Insertar partida finalizada
+    public void insertarHistory(History h) throws exceptions.sudokuExceptions{
+        try {
+            tx = sesion.beginTransaction();
+            sesion.save(h);
+            tx.commit();
+        } catch (Exception e) {
+        }
+    }
     //5B Calcular tiempo medio de usuario
+    
     //5C Obtener Sudoku aleatorio de los que el usuario todavia no ha jugado
+    
     //5D Obtener ranking de usuario mas alto tiempo medio de jugador
+    
     //5E
+    
     public boolean existeSudoku(String solved) {
         Sudoku s;
         if (solved.equals("s")) {
-
+            
         }
         return false;
     }
 
-//    public List<User> getUserByUsername(String username) {
-//        Query q = sesion.createSQLQuery("select * from User where username=:param1");
-//        q.setString("param1", username);
-//        return q.list();
-//    }
     public List<Sudoku> getSudokuBySolved(String solved) {
         Query q = sesion.createQuery("select s from Sudoku where solved='" + solved + "'");
         return q.list();
