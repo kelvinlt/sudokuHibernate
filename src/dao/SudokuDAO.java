@@ -73,15 +73,15 @@ public class SudokuDAO {
 
     //4B Valida entrada de un usuario 
     //4C Modificar el perfil de un Usuario determinado
-    public void modificarUser(User u, String newNombre) {
-        User aux = getUserByUsername(u.getUsername());
-        if (aux == null) {
-
-        }
-        tx = sesion.beginTransaction();
-        aux.setName(newNombre);
-        tx.commit();
-    }
+//    public void modificarUser(User u, String newNombre) {
+//        User aux = getUserByUsername(u.getUsername());
+//        if (aux == null) {
+//
+//        }
+//        tx = sesion.beginTransaction();
+//        aux.setName(newNombre);
+//        tx.commit();
+//    }
 
     //4D Modificar la contraseña de un usuario existente
     //4E Eliminar un usuario
@@ -99,12 +99,23 @@ public class SudokuDAO {
         }
     }
 
-    public User getUserByUsername(String username) {
-        return (User) sesion.get(User.class, username);
+    public boolean existeSudoku(String solved){
+        Sudoku s;
+        if(solved.equals("s")){
+            
+        }
+        return false;
     }
-
-    public Sudoku getSudokuBySolved(String solved) {
-        return (Sudoku) sesion.get(Sudoku.class, solved);
+    
+    public List<User> getUserByUsername(String username){
+        Query q = sesion.createSQLQuery("select * from User where username=:param1");
+        q.setString("param1", username);
+        return q.list();
+    }
+        
+    public List<Sudoku> getSudokuBySolved(String solved){
+        Query q = sesion.createQuery("select s from Sudoku where solved='"+solved+"'");
+        return q.list();
     }
 
     public List<History> getHistoryByUser() {

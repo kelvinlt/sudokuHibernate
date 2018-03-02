@@ -12,6 +12,7 @@ import entities.Sudoku;
 import entities.User;
 import java.util.List;
 import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -33,6 +34,12 @@ public class sudokuHibernate {
             System.out.println(e.getMessage());
         }
         lineBreak();
+        
+        List<User> useres = sudokuDAO.getUserByUsername("kelvinlt");
+        for(User u : useres){
+            System.out.println(u.getUsername());
+        }
+        
         
         sudokuDAO.desconectar();
     }
