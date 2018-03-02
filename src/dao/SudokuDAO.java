@@ -30,10 +30,6 @@ public class SudokuDAO {
     
     //3A Insertar nuevo sudoku en la BBDD
     public void insertarSudoku(Sudoku u) {
-//        Sudoku aux = getSudokuBySolved(u.getSolved());
-//        if (aux != null) {
-//          throw new RestaurantException("Ya existe un cocinero con ese nombre");
-//        }
         tx = sesion.beginTransaction();
         sesion.save(u);
         tx.commit();
@@ -147,12 +143,12 @@ public class SudokuDAO {
     
     //5B Calcular tiempo medio de usuario
     public void tiempoMedioUser(User u) throws exceptions.sudokuExceptions{
-    
+        
     }
     
     //5C Obtener Sudoku aleatorio de los que el usuario todavia no ha jugado
     public void sudokuAleatorio(User u) throws exceptions.sudokuExceptions{
-    
+        
     }
     
     //5D Obtener ranking de usuario mas alto tiempo medio de jugador

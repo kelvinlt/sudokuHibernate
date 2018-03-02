@@ -130,9 +130,20 @@ public class sudokuHibernate {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        lineBreak();
+        
+        //(5A) Insert de history en base de datos
+        System.out.println("Insertar history de user kelvinlt con sudoku 1");
+        History historyKelvin1 = new History(sudokuOne, kelvin, 100);
+        try {
+            sudokuDAO.insertarHistory(historyKelvin1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        lineBreak();
+        
         
         System.out.println("Cerrando session...");
-        lineBreak();  
         sudokuDAO.desconectar();
         lineBreak();  
         System.out.println("Cerrado");

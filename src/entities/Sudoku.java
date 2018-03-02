@@ -1,5 +1,5 @@
 package entities;
-// Generated 02-mar-2018 9:26:31 by Hibernate Tools 4.3.1
+// Generated 02-mar-2018 22:25:03 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -79,19 +79,7 @@ public class Sudoku  implements java.io.Serializable {
         this.histories = histories;
     }
 
-    @Override
-    public String toString() {
-        return "Sudoku{ \n" + 
-                "id=" + id + "\n"+
-                " description=" + description + "\n"+
-                " level=" + level + "\n"+
-                " unsolved=" + unsolved + "\n"+
-                " solved=" + solved + "\n"+
-                " histories=" + histories + "\n"+
-                '}';
-    }
 
- 
 
 
 }
