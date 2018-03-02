@@ -76,7 +76,6 @@ public class SudokuDAO {
     }
 
     //4B Valida entrada de un usuario 
-
     public boolean login(User u, String password) throws sudokuExceptions {
         System.out.println("Logeando...");
         if (existeUsername(u.getUsername()) == false) {
@@ -93,33 +92,42 @@ public class SudokuDAO {
     }
 
     //4C Modificar el perfil de un Usuario determinado
-    public void modificarUser(User u, String newNombre) throws exceptions.sudokuExceptions{
+    public void modificarUserName(User u, String newNombre) throws exceptions.sudokuExceptions {
         try {
             User aux = getUserByUsername(u.getUsername());
-                    tx = sesion.beginTransaction();
-        aux.setName(newNombre);
-        tx.commit();
-        
-        } catch (Exception e) {
-            throw new sudokuExceptions("No se ha podido modificar el usuario");
-        }
- 
-        
+            tx = sesion.beginTransaction();
+            aux.setName(newNombre);
+            tx.commit();
 
+        } catch (Exception e) {
+            throw new sudokuExceptions("No se ha podido modificar el nombre del usuario");
+        }
     }
-    
-    public User getUserByUsername(String username)throws exceptions.sudokuExceptions{
-        Query q = sesion.createQuery("select u from User u where username='"+username+"'");
+
+    public User getUserByUsername(String username) throws exceptions.sudokuExceptions {
+        Query q = sesion.createQuery("select u from User u where username='" + username + "'");
         User userEncontrado = new User();
         List<User> allUsers = q.list();
-            for (User s : allUsers) {
-                userEncontrado = s;
-            }
-        
+        for (User s : allUsers) {
+            userEncontrado = s;
+        }
+
         q.list();
         return userEncontrado;
     }
+
     //4D Modificar la contraseña de un usuario existente
+    public void modificarUserPassword(User u, String newPassword) throws exceptions.sudokuExceptions {
+        try {
+            User aux = getUserByUsername(u.getUsername());
+            tx = sesion.beginTransaction();
+            aux.setPassword(newPassword);
+            tx.commit();
+        } catch (Exception e) {
+            throw new sudokuExceptions("No se ha podido modificar la contraseña del usuario");
+        }
+    }
+
     //4E Eliminar un usuario
     //5A Insertar partida finalizada
     //5B Calcular tiempo medio de usuario
@@ -139,7 +147,6 @@ public class SudokuDAO {
 //        q.setString("param1", username);
 //        return q.list();
 //    }
-
     public List<Sudoku> getSudokuBySolved(String solved) {
         Query q = sesion.createQuery("select s from Sudoku where solved='" + solved + "'");
         return q.list();
