@@ -23,7 +23,7 @@ public class SudokuDAO {
 
     Session sesion;
     Transaction tx;
-
+    
     public SudokuDAO() {
         sesion = HibernateUtil.getSessionFactory().openSession();
     }
@@ -125,8 +125,11 @@ public class SudokuDAO {
     //4E Eliminar un usuario
     public void eliminarUser(User u)throws exceptions.sudokuExceptions{
         try {
-            Query q = sesion.createQuery("delete u from User u where username='"+u.getUsername()+"'");
-            q.executeUpdate();
+            User aux = getUserByUsername(u.getUsername());
+            if (existeUsername(u.getUsername()) == false) {
+                throw new exceptions.sudokuExceptions("El usuario no existe");
+            }         
+            sesion.delete(aux);
         } catch (Exception e) {
             throw new sudokuExceptions("No se ha podido eliminar el usuario");
         }
@@ -141,13 +144,26 @@ public class SudokuDAO {
         } catch (Exception e) {
         }
     }
+    
     //5B Calcular tiempo medio de usuario
+    public void tiempoMedioUser(User u) throws exceptions.sudokuExceptions{
+    
+    }
     
     //5C Obtener Sudoku aleatorio de los que el usuario todavia no ha jugado
+    public void sudokuAleatorio(User u) throws exceptions.sudokuExceptions{
+    
+    }
     
     //5D Obtener ranking de usuario mas alto tiempo medio de jugador
+    public void obtenerRankingTiempoMasAlto(User u) throws exceptions.sudokuExceptions{
+        
+    }
     
-    //5E
+    //5E Obtener posicion dentro del ranking para un usuario en concreto
+    public void obtenerPosicionFromUser(User u) throws exceptions.sudokuExceptions{
+        
+    }
     
     public boolean existeSudoku(String solved) {
         Sudoku s;

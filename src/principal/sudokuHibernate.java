@@ -31,7 +31,7 @@ public class sudokuHibernate {
         Sudoku sudokuOne = new Sudoku("Medium (Level 7)", 7, "5......4129.7.4..83...1.....4...2...6.2...5.9...8...3.....8...34..6.9.5283......7", "578263941291754368364918725743592186682341579159876234925487613417639852836125497");
         System.out.println("Dando de alta un sudoku: "+sudokuOne.getUnsolved());
         try {
-            //sudokuDAO.insertarSudoku(sudokuOne);
+            sudokuDAO.insertarSudoku(sudokuOne);
             System.out.println("Se ha dado de alta el sudoku: "+sudokuOne.getUnsolved());
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -41,7 +41,7 @@ public class sudokuHibernate {
         Sudoku sudokuTwo = new Sudoku("Medium (Level 6)", 6, ".3.....6..518.723.2.7...8.4...754.......3.......692...3.6...5.2.852.371..4.....9.", "839425167451867239267319854623754981794138625518692473376981542985243716142576398");
         System.out.println("Dando de alta un sudoku: "+sudokuTwo.getUnsolved());
         try {
-            //sudokuDAO.insertarSudoku(sudokuTwo);
+            sudokuDAO.insertarSudoku(sudokuTwo);
             System.out.println("Se ha dado de alta el sudoku: "+sudokuTwo.getUnsolved());
         } catch (Exception e) {
             System.out.println(e.getMessage());
