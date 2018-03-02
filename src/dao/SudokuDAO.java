@@ -93,15 +93,32 @@ public class SudokuDAO {
     }
 
     //4C Modificar el perfil de un Usuario determinado
-//    public void modificarUser(User u, String newNombre) {
-//        User aux = getUserByUsername(u.getUsername());
-//        if (aux == null) {
-//
-//        }
-//        tx = sesion.beginTransaction();
-//        aux.setName(newNombre);
-//        tx.commit();
-//    }
+    public void modificarUser(User u, String newNombre) throws exceptions.sudokuExceptions{
+        try {
+            User aux = getUserByUsername(u.getUsername());
+                    tx = sesion.beginTransaction();
+        aux.setName(newNombre);
+        tx.commit();
+        
+        } catch (Exception e) {
+            throw new sudokuExceptions("No se ha podido modificar el usuario");
+        }
+ 
+        
+
+    }
+    
+    public User getUserByUsername(String username)throws exceptions.sudokuExceptions{
+        Query q = sesion.createQuery("select u from User u where username='"+username+"'");
+        User userEncontrado = new User();
+        List<User> allUsers = q.list();
+            for (User s : allUsers) {
+                userEncontrado = s;
+            }
+        
+        q.list();
+        return userEncontrado;
+    }
     //4D Modificar la contraseña de un usuario existente
     //4E Eliminar un usuario
     //5A Insertar partida finalizada
@@ -117,11 +134,11 @@ public class SudokuDAO {
         return false;
     }
 
-    public List<User> getUserByUsername(String username) {
-        Query q = sesion.createSQLQuery("select * from User where username=:param1");
-        q.setString("param1", username);
-        return q.list();
-    }
+//    public List<User> getUserByUsername(String username) {
+//        Query q = sesion.createSQLQuery("select * from User where username=:param1");
+//        q.setString("param1", username);
+//        return q.list();
+//    }
 
     public List<Sudoku> getSudokuBySolved(String solved) {
         Query q = sesion.createQuery("select s from Sudoku where solved='" + solved + "'");

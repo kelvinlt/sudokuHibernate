@@ -103,7 +103,16 @@ public class sudokuHibernate {
             
         }
         lineBreak();
+        //(4C) Modificacion de usuario
+        System.out.println("Modificando usuario kelvinlt");
+        try {
+            sudokuDAO.modificarUser(kelvin, "algoAlgo");
+            System.out.println("Modificacion correcta");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         
+        lineBreak();
         
         System.out.println("Cerrando session...");
         lineBreak();  
