@@ -79,6 +79,11 @@ public class Sudoku  implements java.io.Serializable {
         this.histories = histories;
     }
 
+    @Override
+    public String toString() {
+        return "Sudoku{" + "id=" + id + ", description=" + description + ", level=" + level + ", unsolved=" + unsolved + ", solved=" + solved + ", histories=" + histories + '}';
+    }
+
 
 
 

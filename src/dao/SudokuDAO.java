@@ -36,8 +36,12 @@ public class SudokuDAO {
     }
 
     //3B Conseguir un sudoku a partir de un id
-    public Sudoku getSudokuById(int id) {
-        return (Sudoku) sesion.get(Sudoku.class, id);
+    public Sudoku getSudokuById(int id) throws sudokuExceptions{
+        Sudoku aux =(Sudoku) sesion.get(Sudoku.class, id);
+        if(aux==null){
+            throw new sudokuExceptions("No se ha encontrado el sudoku");
+        }
+        return aux;
     }
 
     //3C Conseguir todos los sudokus en la base de datos
@@ -48,7 +52,7 @@ public class SudokuDAO {
 
     //4A Insertar un nuevo usuario en la BBDD
     public void insertarUser(User u) throws sudokuExceptions {
-        if (existeUsername(u.getUsername())) {
+        if (checkUser(u.getUsername())) {
             throw new sudokuExceptions("Ya existe el usuario");
         }
         tx = sesion.beginTransaction();
@@ -56,7 +60,8 @@ public class SudokuDAO {
         tx.commit();
     }
 
-    public boolean existeUsername(String username) throws sudokuExceptions {
+    //funcion para comprobar que existe usuario
+    public boolean checkUser(String username) throws sudokuExceptions {
         User u = (User) sesion.get(User.class, username);
         if (u != null) {
             return true;
@@ -67,8 +72,8 @@ public class SudokuDAO {
 
     //4B Valida entrada de un usuario 
     public boolean login(User u, String password) throws sudokuExceptions {
-        System.out.println("Logeando...");
-        if (existeUsername(u.getUsername()) == false) {
+        
+        if (checkUser(u.getUsername()) == false) {
             throw new exceptions.sudokuExceptions("El usuario no existe");
         }
 
@@ -83,61 +88,72 @@ public class SudokuDAO {
 
     //4C Modificar el perfil de un Usuario determinado
     public void modificarUserName(User u, String newNombre) throws exceptions.sudokuExceptions {
-        try {
+        boolean auxBol = checkUser(u.getUsername());
+        if(auxBol ==true){
             User aux = getUserByUsername(u.getUsername());
+            
             tx = sesion.beginTransaction();
             aux.setName(newNombre);
             tx.commit();
-
-        } catch (Exception e) {
-            throw new sudokuExceptions("No se ha podido modificar el nombre del usuario");
+        }else{
+            throw new sudokuExceptions("El usuario no se ha encontrado para cambiar el nombre");
         }
     }
-
+    
     public User getUserByUsername(String username) throws exceptions.sudokuExceptions {
+        boolean auxBol = checkUser(username);
         Query q = sesion.createQuery("select u from User u where username='" + username + "'");
         User userEncontrado = new User();
-        List<User> allUsers = q.list();
-        for (User s : allUsers) {
-            userEncontrado = s;
-        }
+        
+        if(auxBol ==true){
+            List<User> allUsers = q.list();
+            for (User s : allUsers) {
+                userEncontrado = s;
+            }
 
-        q.list();
-        return userEncontrado;
+            q.list();
+            return userEncontrado;
+        }else{
+            throw new sudokuExceptions("El usuario no se ha encontrado para la obtencion de datos");
+        }
     }
 
     //4D Modificar la contraseña de un usuario existente
-    public void modificarUserPassword(User u, String newPassword) throws exceptions.sudokuExceptions {
-        try {
+    public void modificarUserPassword(User u, String newPassword) throws sudokuExceptions {
+        boolean auxBol = checkUser(u.getUsername());
+        if(auxBol ==true){
             User aux = getUserByUsername(u.getUsername());
             tx = sesion.beginTransaction();
             aux.setPassword(newPassword);
             tx.commit();
-        } catch (Exception e) {
-            throw new sudokuExceptions("No se ha podido modificar la contraseña del usuario");
+        }else{
+            throw new sudokuExceptions("El usuario no se ha encontrado para modificar la password");
         }
     }
 
     //4E Eliminar un usuario
-    public void eliminarUser(User u)throws exceptions.sudokuExceptions{
-        try {
+    public void eliminarUser(User u)throws sudokuExceptions{
+        boolean auxBol = checkUser(u.getUsername());
+        if(auxBol ==true){
             User aux = getUserByUsername(u.getUsername());
-            if (existeUsername(u.getUsername()) == false) {
-                throw new exceptions.sudokuExceptions("El usuario no existe");
-            }         
             sesion.delete(aux);
-        } catch (Exception e) {
-            throw new sudokuExceptions("No se ha podido eliminar el usuario");
+        }else{
+            throw new sudokuExceptions("El usuario no existe");
         }
     }
     
     //5A Insertar partida finalizada
     public void insertarHistory(History h) throws exceptions.sudokuExceptions{
-        try {
-            tx = sesion.beginTransaction();
-            sesion.save(h);
-            tx.commit();
-        } catch (Exception e) {
+        if(checkUser(h.getUser().getUsername())==true){
+            if(checkSudoku(h.getSudoku().getId())==true){
+                tx = sesion.beginTransaction();
+                sesion.save(h);
+                tx.commit();  
+            }else{
+                throw new sudokuExceptions("No existe el sudoku");
+            }
+        }else{
+            throw new sudokuExceptions("No existe el usuario");
         }
     }
     
@@ -161,12 +177,22 @@ public class SudokuDAO {
         
     }
     
-    public boolean existeSudoku(String solved) {
-        Sudoku s;
-        if (solved.equals("s")) {
-            
+    //public boolean checkSudoku(String solved) {
+    //    Sudoku s;
+    //    if (solved.equals("s")) {
+    //        
+    //    }
+    //    return false;
+    //}
+    
+    //Comprobaciond de si existe sudoku
+    public boolean checkSudoku(int s){
+        Sudoku u = (Sudoku) sesion.get(Sudoku.class, s);
+        if (u != null) {
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public List<Sudoku> getSudokuBySolved(String solved) {

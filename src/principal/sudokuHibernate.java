@@ -48,14 +48,17 @@ public class sudokuHibernate {
         }
         lineBreak(); 
         //(3B)Obtener sudoku por id
-        System.out.println("Cogiendo de la base de datos el sudoku con id:1");
+        int idSudoku=1;
+        System.out.println("Cogiendo de la base de datos el sudoku con id:"+idSudoku);
         try {
             System.out.println("Buscando sudoku...");
-            Sudoku getSudokuOne=sudokuDAO.getSudokuById(1);
+            Sudoku getSudokuOne=sudokuDAO.getSudokuById(idSudoku);
             System.out.println("Sudoku encontrado:");
             System.out.println(getSudokuOne);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        lineBreak();
         //(3C)Obtener lista de todos los sudokus
         try {
             System.out.println("Cogiendo todos los sudokus");
@@ -63,15 +66,17 @@ public class sudokuHibernate {
             for (Sudoku s : allSudokus) {
                 System.out.println(s);
             }
-        } catch (Exception e) {
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
+        lineBreak();
         
         //(4A)Entrada de usuario en base de datos (1)
-        User kelvin = new User("kelvinlt", "123", "kelvin");
-        System.out.println("Dando de alta un usuario: "+kelvin.getUsername());
+        User kelvinlt = new User("kelvinlt", "123", "kelvin");
+        System.out.println("Dando de alta un usuario: "+kelvinlt.getUsername());
         try {
-            sudokuDAO.insertarUser(kelvin);
-            System.out.println("Se ha dado de alta el usuario: "+kelvin.getUsername());
+            sudokuDAO.insertarUser(kelvinlt);
+            System.out.println("Se ha dado de alta el usuario: "+kelvinlt.getUsername());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -90,9 +95,9 @@ public class sudokuHibernate {
         
         //(4B) Validacion de usuario
         try {
-            System.out.println("Logeando usuario:"+kelvin.getUsername()+"...");
-            
-            boolean test = sudokuDAO.login(kelvin, "1");
+            System.out.println("Logeando usuario:"+kelvinlt.getUsername()+"...");
+
+            boolean test = sudokuDAO.login(kelvinlt, "1234");
             if(test != true){
                 System.out.println("Usuario erroneo");
             }else{
@@ -100,13 +105,13 @@ public class sudokuHibernate {
             }
             
         } catch (Exception e) {
-            
+            System.out.println(e.getMessage());
         }
         lineBreak();
         //(4C) Modificacion de nombre de usuario existente
         System.out.println("Modificando usuario kelvinlt :nombre");
         try {
-            sudokuDAO.modificarUserName(kelvin, "algoAlgo");
+            sudokuDAO.modificarUserName(kelvinlt, "algoAlgo");
             System.out.println("Modificacion correcta");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -116,7 +121,7 @@ public class sudokuHibernate {
         //(4D) Modificacion de contraseña de usuario existente
         System.out.println("Modificacion usuario kelvinlt :password");
         try{
-            sudokuDAO.modificarUserPassword(kelvin, "1234");
+            sudokuDAO.modificarUserPassword(kelvinlt, "1234");
             System.out.println("Modificacion correcta");
         }catch (Exception e) {
             System.out.println(e.getMessage());
@@ -134,7 +139,7 @@ public class sudokuHibernate {
         
         //(5A) Insert de history en base de datos
         System.out.println("Insertar history de user kelvinlt con sudoku 1");
-        History historyKelvin1 = new History(sudokuOne, kelvin, 100);
+        History historyKelvin1 = new History(sudokuOne, kelvinlt, 100);
         try {
             sudokuDAO.insertarHistory(historyKelvin1);
         } catch (Exception e) {
